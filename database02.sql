@@ -133,3 +133,43 @@ SELECT nameClient, email
 FROM Clients
 WHERE cpf = '44444444444';
 
+-- projeção de colunas na tela
+SELECT NOW() AS "DATA";
+
+SELECT nameClient, NOW() AS "DATA"
+FROM Clients;
+
+-- seleção (teoria dos conjuntos)
+SELECT nameClient, sex
+FROM Clients
+WHERE sex = 'M';
+
+SELECT nameClient, sex, districtName, cityName, NOW() AS "DATA"
+FROM Clients, District, City
+WHERE Clients.districtId = District.districtId
+AND Clients.cityId = City.cityId;
+
+SELECT nameClient, sex, cityName, districtName
+FROM Clients, City, District
+WHERE cityName = 'Joinville' 
+AND districtName = 'Santa Catarina';
+
+-- Inner Join
+SELECT nameClient, sex, cityName, districtName
+FROM Clients
+INNER JOIN City
+ON Clients.cityId = City.cityId
+INNER JOIN District
+ON Clients.districtId = District.districtId
+WHERE districtName = 'Santa Catarina';
+
+-- Inner Join
+SELECT Clients.nameClient, Clients.sex, City.cityName, District.districtName
+FROM Clients
+INNER JOIN City
+ON Clients.cityId = City.cityId
+INNER JOIN District
+ON Clients.districtId = District.districtId
+WHERE districtName = 'Santa Catarina';
+
+

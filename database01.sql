@@ -105,3 +105,5 @@ UPDATE clients
 SET email = 'veronica@email.com'
 WHERE cpf = 111111111;
 
+
+
