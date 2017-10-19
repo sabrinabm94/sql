@@ -173,3 +173,22 @@ ON Clients.districtId = District.districtId
 WHERE districtName = 'Santa Catarina';
 
 
+SELECT Clients.nameClient, Clients.email, Clients.phone
+FROM Clients
+INNER JOIN Street
+ON Clients.streetId = Street.streetId
+INNER JOIN District
+ON Clients.districtId = District.districtId
+INNER JOIN City
+ON Clients.cityId = City.cityId
+WHERE districtName = 'Iririú';
+
+
+SELECT Clients.nameClient, Clients.email, Clients.phone
+FROM Clients
+INNER JOIN Country
+ON Clients.countryId = Country.countryId
+WHERE sex = 'F'
+AND countryName = 'Brasil';
+
+
