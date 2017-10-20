@@ -1,6 +1,8 @@
+-- create database
 CREATE DATABASE database02;
 USE database02;
 
+-- create tables
 CREATE TABLE Street (
 streetName VARCHAR(30) NOT NULL,
 streetId INT AUTO_INCREMENT PRIMARY KEY
@@ -35,6 +37,7 @@ cityId INT,
 countryId INT
 );
 
+-- alter tables for foreign key
 ALTER TABLE Clients ADD FOREIGN KEY(streetId) REFERENCES Street (streetId);
 ALTER TABLE Clients ADD FOREIGN KEY(districtId) REFERENCES District (districtId);
 ALTER TABLE Clients ADD FOREIGN KEY(cityId) REFERENCES City (cityId);
@@ -42,7 +45,9 @@ ALTER TABLE Clients ADD FOREIGN KEY(countryId) REFERENCES Country (countryId);
 
 DESC Clients;
 
--- Insert Street
+-- inserts
+
+-- insert Street
 INSERT INTO Street(streetName)
 VALUES('Santa Catarina');
 
@@ -64,8 +69,7 @@ VALUES('Alexandre Dohler');
 INSERT INTO Street(streetName) 
 VALUES('Blumenau');
 
-
--- Insert district
+-- insert district
 INSERT INTO District(districtName) 
 VALUES('Santa Catarina');
 
@@ -87,8 +91,7 @@ VALUES('América');
 INSERT INTO District(districtName)  
 VALUES('Centro');
 
-
--- Insert City
+-- insert City
 INSERT INTO City(cityName)  
 VALUES('Joinville');
 
@@ -98,7 +101,7 @@ VALUES('Florianópolis');
 INSERT INTO City(cityName)  
 VALUES('Porto');
 
--- Insert Country
+-- insert Country
 INSERT INTO Country(countryName)   
 VALUES('Brasil');
 
@@ -115,7 +118,7 @@ SELECT * FROM Street;
 SELECT * FROM District;
 SELECT * FROM City;
 
--- Insert Client
+-- insert Client
 INSERT INTO Clients(email, nameClient, streetNumber, cpf, phone, sex, streetId, districtId, cityId, countryId) 
 VALUES('sabrina@email.com', 'Sabrina', 65, 00000000000, 5500000000000, 'F', 3, 3, 1, 1), 
       ('veronica@email.com', 'Veronica', 70, 11111111111, 5511111111111, 'F', 1, 1, 1, 1),
@@ -125,6 +128,7 @@ VALUES('sabrina@email.com', 'Sabrina', 65, 00000000000, 5500000000000, 'F', 3, 3
 
 SELECT * FROM Clients;
 
+-- update
 UPDATE Clients
 SET email = 'guardalupe@email.com'
 WHERE cpf = '44444444444';
@@ -133,13 +137,13 @@ SELECT nameClient, email
 FROM Clients
 WHERE cpf = '44444444444';
 
--- projeção de colunas na tela
+-- column project in screen
 SELECT NOW() AS "DATA";
 
 SELECT nameClient, NOW() AS "DATA"
 FROM Clients;
 
--- seleção (teoria dos conjuntos)
+-- select (teoria dos conjuntos)
 SELECT nameClient, sex
 FROM Clients
 WHERE sex = 'M';
@@ -149,12 +153,14 @@ FROM Clients, District, City
 WHERE Clients.districtId = District.districtId
 AND Clients.cityId = City.cityId;
 
+-- order by
 SELECT nameClient, sex, cityName, districtName
 FROM Clients, City, District
 WHERE cityName = 'Joinville' 
-AND districtName = 'Santa Catarina';
+AND districtName = 'Santa Catarina'
+ORDER BY sex DESC; -- sort the results by male
 
--- Inner Join
+-- inner join
 SELECT nameClient, sex, cityName, districtName
 FROM Clients
 INNER JOIN City
@@ -163,7 +169,7 @@ INNER JOIN District
 ON Clients.districtId = District.districtId
 WHERE districtName = 'Santa Catarina';
 
--- Inner Join
+-- inner join
 SELECT Clients.nameClient, Clients.sex, City.cityName, District.districtName
 FROM Clients
 INNER JOIN City
@@ -172,7 +178,7 @@ INNER JOIN District
 ON Clients.districtId = District.districtId
 WHERE districtName = 'Santa Catarina';
 
-
+-- inner join
 SELECT Clients.nameClient, Clients.email, Clients.phone
 FROM Clients
 INNER JOIN Street
@@ -183,12 +189,46 @@ INNER JOIN City
 ON Clients.cityId = City.cityId
 WHERE districtName = 'Iririú';
 
-
+-- inner join
 SELECT Clients.nameClient, Clients.email, Clients.phone
 FROM Clients
 INNER JOIN Country
 ON Clients.countryId = Country.countryId
 WHERE sex = 'F'
 AND countryName = 'Brasil';
+
+-- view
+CREATE VIEW view_clients AS
+SELECT Clients.nameClient, Clients.email, Clients.phone, Street.streetName, District.districtName, City.cityName, Country.countryName
+FROM Clients
+INNER JOIN Street
+ON Clients.streetId = Street.streetId
+INNER JOIN District
+ON Clients.districtId = District.districtId
+INNER JOIN City
+ON Clients.cityId = City.cityId
+INNER JOIN Country
+ON Clients.countryId = Country.countryId;
+
+SELECT * FROM view_clients; 
+
+SELECT * FROM view_clients
+WHERE cityName = 'Joinville'; -- Access a query through another query
+
+SHOW TABLES; -- how to differentiate views from tables? use prefixes.
+
+-- view deletar
+DROP VIEW view_clients;
+
+-- procedures
+
+
+
+
+
+
+
+
+
 
 
