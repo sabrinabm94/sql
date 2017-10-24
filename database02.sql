@@ -218,5 +218,17 @@ SHOW TABLES; -- how to differentiate views from tables? use prefixes.
 DROP VIEW view_clients;
 
 -- procedures
+DELIMITER $
+CREATE PROCEDURE countNumbers(n1 INT, n2 INT)
+BEGIN
+	SELECT n1 + n2 AS 'SumNumbers';
+END $
+DELIMITER ;
+
+CALL countNumbers(5, 10);
+
+DROP PROCEDURE countNumbers;
+
+
 
 
