@@ -35,7 +35,7 @@ nomeProduto,
 descricaoProduto,
 idCombo
 )
-VALUES ('Batata pequena', 'Batata frita pequena', 1), ('Batata média', 'Batata frita média', 2), ('Batata grande', 'Batata frita grande', 3), ('Refrigerante', 'Refil de refrigerante', 1), ('Refrigerante', 'Refil de refrigerante', 2), ('Refrigerante', 'Refil de refrigerante', 3), ('Hamburger pequeno', 'Sanduiche simples pequeno com hamburger, queijo, alface, cebola e molho especial', 1), ('Hamburger médio', 'Sanduiche simples médio com hamburger, queijo, alface, cebola e molho especial', 2), ('Hamburger grande', 'Sanduiche simples grande com hamburger, queijo, alface, cebola e molho especial', 3),  ('Salada', 'salada de alface com tomate e molho especial', 0)  
+VALUES ('Batata pequena', 'Batata frita pequena', 1), ('Batata mÃ©dia', 'Batata frita mÃ©dia', 2), ('Batata grande', 'Batata frita grande', 3), ('Refrigerante', 'Refil de refrigerante', 1), ('Refrigerante', 'Refil de refrigerante', 2), ('Refrigerante', 'Refil de refrigerante', 3), ('Hamburger pequeno', 'Sanduiche simples pequeno com hamburger, queijo, alface, cebola e molho especial', 1), ('Hamburger mÃ©dio', 'Sanduiche simples mÃ©dio com hamburger, queijo, alface, cebola e molho especial', 2), ('Hamburger grande', 'Sanduiche simples grande com hamburger, queijo, alface, cebola e molho especial', 3),  ('Salada', 'salada de alface com tomate e molho especial', 0)  
 
 INSERT dbo.pedido 
 (
@@ -56,5 +56,10 @@ VALUES (1, 1, 1), (2, 4, 7), (3, 5, 8)
 
 SELECT * FROM produto 
 
---Procedure: cadastrar pedido
+-- procedure: cadastrar itens combo
+CREATE PROCEDURE CadastrosItensCombo()
+BEGIN
+	-- if combo == 1 {adiciona os itens no pedido}
+END
+
 --Trigger cadastrar intens pedido

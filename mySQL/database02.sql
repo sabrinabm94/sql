@@ -217,6 +217,39 @@ SHOW TABLES; -- how to differentiate views from tables? use prefixes.
 -- view deletar
 DROP VIEW view_clients;
 
--- procedures
+-- procedures with parameters
+DELIMITER $
+CREATE PROCEDURE countNumbers(n1 INT, n2 INT)
+BEGIN
+	SELECT n1 + n2 AS "Count";
+END
+$
+DELIMITER ;
 
+CALL countNumbers(5, 5);
+CALL countNumbers(25, 23);
 
+DROP PROCEDURE countNumbers;
+
+-- table courses
+CREATE TABLE Courses (
+	idCourse INT PRIMARY KEY AUTO_INCREMENT,
+    nomeCourse VARCHAR(30) NOT NULL,
+    hoursCourse INT(3),
+    valueCourse FLOAT(10, 2)
+);
+
+INSERT INTO Courses VALUES (NULL, 'Database fundaments', 25, 200.00);
+
+SELECT * FROM Courses
+
+-- procedure
+DELIMITER $
+CREATE PROCEDURE cad_cursos (P_NOME VARCHAR(30), P_HORAS INT(3), P_PRECO FLOAT(10, 2))
+BEGIN
+	INSERT INTO CURSOS VALUES(NULL, P_NOME, P_HORAS, P_PRECO);
+END
+$
+
+DELIMITER ;
+CALL CAD_CURSOS('BI SQL SERVER, 35, 200.00');
