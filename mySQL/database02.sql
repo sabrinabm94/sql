@@ -217,6 +217,86 @@ SHOW TABLES; -- how to differentiate views from tables? use prefixes.
 -- view deletar
 DROP VIEW view_clients;
 
+-- table courses
+CREATE TABLE Courses (
+	idCourse INT PRIMARY KEY AUTO_INCREMENT,
+	nameCourse VARCHAR(30) NOT NULL,
+	hoursCourse INT(3),
+	valueCourse FLOAT(10, 2)
+);
+
+INSERT INTO Courses VALUES (NULL, 'Database fundaments', 25, 200.00);
+
+SELECT * FROM Courses
+DROP TABLE Courses;
+
+-- table sellers
+CREATE TABLE Sellers (
+	idSeller INT PRIMARY KEY AUTO_INCREMENT,
+	nameSeller VARCHAR(30) NOT NULL,
+	sex CHAR(1),
+    january FLOAT(10, 2),
+    february FLOAT(10, 2),
+	march FLOAT(10, 2)
+);
+
+INSERT Sellers 
+VALUES (NULL, 'Maria', 'F', 10, 20, 30),
+	   (NULL, 'Rodrigo', 'M', 5, 30, 10),
+       (NULL, 'Rebeca', 'F', 15, 88, 50);
+
+SELECT * FROM Sellers;
+DROP TABLE Sellers;
+
+-- sun
+SELECT MAX(february) AS Max_Sun_Feb
+FROM Sellers;
+
+-- max
+SELECT MAX(february) AS Max_Sel_Feb
+FROM Sellers;
+
+-- min
+SELECT MIN(february) AS Max_Sel_Feb
+FROM Sellers;
+
+-- avg (média)
+SELECT AVG(february) AS Max_Sel_Feb
+FROM Sellers;
+
+-- all in one function
+SELECT MAX(january) AS Max_Sel_Jan,
+	   MIN(february) AS Max_Sel_Feb,
+       AVG(march) AS Max_Sel_Mar
+FROM Sellers;
+
+-- truncate (first parameter is a number and secound is a number of decimal places)
+SELECT MAX(january) AS Max_Sel_Jan,
+	   MIN(february) AS Max_Sel_Feb,
+       TRUNCATE (AVG(march), 2) AS Max_Sel_Mar
+FROM Sellers;
+
+-- count per sex
+SELECT sex, SUM(january) AS Total_Jan
+FROM Sellers
+GROUP BY sex;
+
+-- SUBQUERIES
+-- value and name of the worse sellers of march
+SELECT nameSeller, march 
+FROM Sellers
+WHERE march = (SELECT MIN(march) FROM Sellers); -- the inner query is done first
+
+-- value and name of the best sellers of march
+SELECT nameSeller, march 
+FROM Sellers
+WHERE march = (SELECT MAX(march) FROM Sellers);
+
+-- value and name of the best sellers of march
+SELECT nameSeller, march 
+FROM Sellers
+WHERE march = (SELECT MAX(march) FROM Sellers);
+
 -- procedures with parameters
 DELIMITER $
 CREATE PROCEDURE countNumbers(n1 INT, n2 INT)
@@ -231,25 +311,26 @@ CALL countNumbers(25, 23);
 
 DROP PROCEDURE countNumbers;
 
--- table courses
-CREATE TABLE Courses (
-	idCourse INT PRIMARY KEY AUTO_INCREMENT,
-	nomeCourse VARCHAR(30) NOT NULL,
-	hoursCourse INT(3),
-	valueCourse FLOAT(10, 2)
-);
-
-INSERT INTO Courses VALUES (NULL, 'Database fundaments', 25, 200.00);
-
-SELECT * FROM Courses
-
--- procedure
+-- procedure with insert
 DELIMITER $
-CREATE PROCEDURE cad_cursos (P_NOME VARCHAR(30), P_HORAS INT(3), P_PRECO FLOAT(10, 2))
+CREATE PROCEDURE coursesInsert(nameCourse VARCHAR(30), hoursCourse INT(3), valueCourse FLOAT(10, 2))
 BEGIN
-INSERT INTO CURSOS VALUES(NULL, P_NOME, P_HORAS, P_PRECO);
+INSERT INTO Courses VALUES(NULL, nameCourse, hoursCourse, valueCourse);
 END
 $
-
 DELIMITER ;
-CALL CAD_CURSOS('BI SQL SERVER, 35, 200.00');
+CALL coursesInsert('BI SQL SERVER', 35, 200.00);
+
+-- procedure with select
+DELIMITER $
+CREATE PROCEDURE searchCourses()
+BEGIN	
+	SELECT idCourse, nameCourse, hoursCourse, valueCourse
+    FROM Courses;
+END
+$
+DELIMITER ;
+
+CALL searchCourses();
+
+
