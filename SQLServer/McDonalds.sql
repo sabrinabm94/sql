@@ -1,65 +1,90 @@
-CREATE DATABASE mcDonalds
-USE mcDonalds
+CREATE DATABASE mcDonalds;
+USE mcDonalds;
 
 CREATE TABLE produto (
-idProduto INT IDENTITY PRIMARY KEY,
+idProduto INT AUTO_INCREMENT PRIMARY KEY,
 nomeProduto VARCHAR(20),
 descricaoProduto VARCHAR(100),
-idCombo INT
-)
+precoProduto INT
+);
+
+CREATE TABLE combo (
+idCombo INT AUTO_INCREMENT PRIMARY KEY,
+nomeCombo VARCHAR(20),
+descricaoCombo VARCHAR(100),
+idCombo INT,
+precoCombo INT
+);
+
+ALTER TABLE combo ADD FOREIGN KEY(idProduto) REFERENCES produto (idProduto);
 
 CREATE TABLE pedido (
-idPedido INT IDENTITY PRIMARY KEY,
+idPedido INT AUTO_INCREMENT PRIMARY KEY,
+idCombo INT,
 quantidadeCombo INT,
+quantidadePedido INT,
 dataPedido DATE,
-)
+CONSTRAINT idPedidoCombo PRIMARY KEY (idPedido, idCombo),
+CONSTRAINT idPedidoproduto PRIMARY KEY (idPedido, idProduto)
+);
+
+ALTER TABLE pedido ADD FOREIGN KEY(idCombo) REFERENCES combo (idCombo);
+ALTER TABLE pedido ADD FOREIGN KEY(idProduto) REFERENCES combo (idProduto);
 
 CREATE TABLE itensPedido (
+idItensPedido INT AUTO_INCREMENT PRIMARY KEY,
 idPedido INT,
-quantidadeCombo INT,
-idProduto INT,
-nomeProduto VARCHAR(20),
-descricaoProduto VARCHAR(100),
-CONSTRAINT idPedidoidItem PRIMARY KEY (idPedido, idProduto),
-)
+quantidadeItemPedido INT, -- verificar o id do compo e adicionar os produtos relacionados aqui!!
+idProduto VARCHAR(20), -- como adicionar essa informação na tabela sem foreign key?? quero pegar o mesmo do produto
+precoProduto INT,
+precoCombo INT,
+valorTotalCompra INT
+);
 
 ALTER TABLE itensPedido ADD FOREIGN KEY(idPedido) REFERENCES pedido (idPedido);
-ALTER TABLE itensPedido ADD FOREIGN KEY(quantidadeCombo) REFERENCES pedido (quantidadeCombo);
-ALTER TABLE itensPedido ADD FOREIGN KEY(idProduto) REFERENCES produto (idProduto);
-ALTER TABLE itensPedido ADD FOREIGN KEY(nomeProduto) REFERENCES produto (nomeProduto);
-ALTER TABLE itensPedido ADD FOREIGN KEY(descricaoProduto) REFERENCES produto (descricaoProduto);
 
-INSERT dbo.produto 
+INSERT produto 
 (
 nomeProduto,
 descricaoProduto,
 idCombo
 )
-VALUES ('Batata pequena', 'Batata frita pequena', 1), ('Batata média', 'Batata frita média', 2), ('Batata grande', 'Batata frita grande', 3), ('Refrigerante', 'Refil de refrigerante', 1), ('Refrigerante', 'Refil de refrigerante', 2), ('Refrigerante', 'Refil de refrigerante', 3), ('Hamburger pequeno', 'Sanduiche simples pequeno com hamburger, queijo, alface, cebola e molho especial', 1), ('Hamburger médio', 'Sanduiche simples médio com hamburger, queijo, alface, cebola e molho especial', 2), ('Hamburger grande', 'Sanduiche simples grande com hamburger, queijo, alface, cebola e molho especial', 3),  ('Salada', 'salada de alface com tomate e molho especial', 0)  
+VALUES ('Batata pequena', 'Batata frita pequena', 1), ('Batata média', 'Batata frita média', 2), ('Batata grande', 'Batata frita grande', 3), ('Refrigerante', 'Refil de refrigerante', 1), ('Refrigerante', 'Refil de refrigerante', 2), ('Refrigerante', 'Refil de refrigerante', 3), ('Hamburger pequeno', 'Sanduiche simples pequeno com hamburger, queijo, alface, cebola e molho especial', 1), ('Hamburger médio', 'Sanduiche simples médio com hamburger, queijo, alface, cebola e molho especial', 2), ('Hamburger grande', 'Sanduiche simples grande com hamburger, queijo, alface, cebola e molho especial', 3),  ('Salada', 'Salada de alface com tomate e molho especial', 0);  
 
-INSERT dbo.pedido 
+INSERT pedido 
 (
 quantidadeCombo,
 dataPedido
 )
-VALUES (1, '10/10/2017'),  (1, '05/10/2017'), (1, '08/10/2017')
+VALUES (1, '2017-10-10'),  (1, '2017-01-10'), (1, '2017-05-02');
 
-INSERT dbo.itensPedido 
-(
-idPedido,
-quantidadeCombo,
-idProduto,
-nomeProduto,
-descricaoProduto
-)
-VALUES (1, 1, 1), (2, 4, 7), (3, 5, 8)
+SELECT * FROM produto;
 
-SELECT * FROM produto 
-
--- procedure: cadastrar itens combo
-CREATE PROCEDURE CadastrosItensCombo()
+DELIMITER $
+CREATE PROCEDURE adicaoItensdoCombo()
 BEGIN
-	-- if combo == 1 {adiciona os itens no pedido}
+    CASE WHEN @idCombo = 1 THEN -- adicionar os itens do combo na tabela itensPedido
+		
+    -- verificar o id do combo da tabela pedido
+    -- verificar a quantidade de itens do combo da tabela produto
+    -- adicionar os itens do combo (considerando a quantidade) na tabela itensPedido
+    
+    DECLARE @idCombo INT, @quantCombo INT;
+    
+    INSERT itensPedido
+    SELECT @idCombo = produto.idCombo, @quantCombo = pedido.quantidadeCombo
+    FROM produto, pedido
+    WHERE produto.idCombo = pedido.idCombo;
+    
 END
 
---Trigger cadastrar intens pedido
+CREATE PROCEDURE calcularTotalCompra()
+BEGIN
+	DECLARE @valorTotalCompra INT;
+    
+    -- verificar todos os produtos da compra e combos e adicionar a soma na tabela itensPedido
+END
+
+DELIMITER ;
+CALL calcularTotalCompra();
+
