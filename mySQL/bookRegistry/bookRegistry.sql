@@ -1,55 +1,56 @@
 CREATE DATABASE bookRegistry;
 USE bookRegistry;
 
-
-CREATE TABLE Client (
-	name VARCHAR(50) NOT NULl,
-	user VARCHAR(10) NOT NULL UNIQUE,
-	description VARCHAR(255),
-	password VARCHAR(10) NOT NULL,
-	birtDate DATE,
-	idClient INT IDENTITY PRIMARY KEY
-)
-
-CREATE TABLE Collection (
-	name VARCHAR(50) NOT NULL UNIQUE,
-	description VARCHAR(255),
-	size INT,
-	idCollection INT IDENTITY PRIMARY KEY,
-	idClient INT,
-	FOREIGN KEY(idClient) REFERENCES Client (idClient)
-)
-
-CREATE TABLE Book (
-	isbn INT PRIMARY KEY,
-	name VARCHAR(50) NOT NULL,
-	year INT,
-	descripton VARCHAR(255),
-	startsRanking INT,
-	releaseData DATE,
-	edition INT,
-	idBook INT IDENTITY,
-	idCollection INT,
-	-FOREIGN KEY(idCollection) REFERENCES Collection (idCollection)
-)
+CREATE TABLE Publisher (
+	idPublisher INT AUTO_INCREMENT PRIMARY KEY,
+	namePublisher VARCHAR(50) NOT NUll
+);
 
 CREATE TABLE Author (
-	idAuthor INT IDENTITY PRIMARY KEY,
+	idAuthor INT AUTO_INCREMENT PRIMARY KEY,
 	nameAuthor VARCHAR(50) NOT NULL
-)
+);
 
-CREATE TABLE Publisher (
-	idPublisher INT IDENTITY PRIMARY KEY,
-	namePublisher VARCHAR(50) NOT NUll
-)
+CREATE TABLE Clients (
+	nameClient VARCHAR(50) NOT NULl,
+	userClient VARCHAR(10) NOT NULL UNIQUE,
+	descriptionClient VARCHAR(255),
+	passwordClient VARCHAR(10) NOT NULL,
+	birtDate DATE,
+	idClient INT AUTO_INCREMENT PRIMARY KEY
+);
 
--- gerado pelo diagrama isso, pela relação n-n de livro e autor, revisar
+CREATE TABLE Collection (
+	nameCollection VARCHAR(50) NOT NULL UNIQUE,
+	descriptionCollection VARCHAR(255),
+	sizeCollection INT,
+	idCollection INT AUTO_INCREMENT PRIMARY KEY,
+	idClient INT,
+	FOREIGN KEY(idClient) REFERENCES Clients (idClient)
+);
 
-CREATE TABLE bookAuth (
+CREATE TABLE Book (
 	isbn INT,
-	idBookAuth INT IDENTITY,
-	FOREIGN KEY(isbn) REFERENCES Book (isbn),
-	FOREIGN KEY(idPublisher) REFERENCES Author (idPublisher)
-)
+	nameBook VARCHAR(50) NOT NULL,
+	yearBook INT,
+	descriptonBook VARCHAR(255),
+	startsRanking INT,
+	releaseDataBook DATE,
+	editionBook INT,
+	idBook INT AUTO_INCREMENT PRIMARY KEY,
+	idCollection INT,
+    idPublisher INT,
+	FOREIGN KEY(idCollection) REFERENCES Collection (idCollection),
+    FOREIGN KEY(idPublisher) REFERENCES Publisher (idPublisher)
+);
 
-ALTER TABLE Book ADD FOREIGN KEY(idPublisher) REFERENCES Publisher (idPublisher)
+-- gerado pelo diagrama isso, pela relaÃ§Ã£o n-n de livro e autor, revisar
+CREATE TABLE bookAuth (
+	idBook INT,
+    idPublisher INT,
+	idBookAuth INT AUTO_INCREMENT,
+	FOREIGN KEY(idBook) REFERENCES Book (idBook),
+	FOREIGN KEY(idPublisher) REFERENCES Publisher (idPublisher)
+);
+
+
