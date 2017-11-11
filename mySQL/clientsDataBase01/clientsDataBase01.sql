@@ -1,5 +1,5 @@
-CREATE DATABASE database01;
-USE database01;
+CREATE DATABASE clientsDataBase01;
+USE clientsDataBase01;
 
 CREATE TABLE clients (
 	cpf INT PRIMARY KEY,

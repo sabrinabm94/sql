@@ -9,8 +9,8 @@
 -- $
 -- DELIMITER ;
 
-CREATE DATABASE testTrigger;
-USE testTrigger;
+CREATE DATABASE clientsDataBase03;
+USE clientsDataBase03;
 
 CREATE TABLE clients (
 	idClient INT PRIMARY KEY AUTO_INCREMENT,

@@ -1,6 +1,6 @@
 -- logic backup
-CREATE DATABASE store;
-USE store;
+CREATE DATABASE storeDatabase;
+USE storeDatabase;
 
 CREATE TABLE product (
 	idProduct INT PRIMARY KEY AUTO_INCREMENT,
@@ -8,8 +8,8 @@ CREATE TABLE product (
     valueProduct FLOAT(10, 2)
 );
 
-CREATE DATABASE storeBk;
-USE storeBk;
+CREATE DATABASE storeDatabaseBk;
+USE storeDatabaseBk;
 
 CREATE TABLE productBkInsert (
 	idProductBk INT PRIMARY KEY AUTO_INCREMENT,
@@ -25,13 +25,13 @@ CREATE TABLE productBkDelete (
     valueProduct FLOAT(10, 2)
 );
 
-USE store;
+USE storeDatabase;
 
 -- insert in a table from another database
-INSERT INTO storeBK.productBkInsert
+INSERT INTO storeDatabaseBK.productBkInsert
 	VALUES(NULL, 100, 'teste', 0.0);
     
-SELECT * FROM storeBk.productBkInsert;
+SELECT * FROM storeDatabaseBk.productBkInsert;
 
 -- trigger to do backup after has a new insert
 DELIMITER $
@@ -39,7 +39,7 @@ CREATE TRIGGER productBkInsert
 AFTER INSERT ON product
 FOR EACH ROW
 BEGIN
-	INSERT INTO storeBk.productBkInsert VALUES(NULL, NEW.idProduct, NEW.nameProduct, NEW.valueProduct);
+	INSERT INTO storeDatabaseBk.productBkInsert VALUES(NULL, NEW.idProduct, NEW.nameProduct, NEW.valueProduct);
 END
 $
 -- atention about the auto_increment numbers, it has only create AFTER the insert !
@@ -49,7 +49,7 @@ CREATE TRIGGER productBkDelete
 BEFORE DELETE ON product
 FOR EACH ROW
 BEGIN
-	INSERT INTO storeBk.productBkDelete VALUES(NULL, OLD.idProduct, OLD.nameProduct, OLD.valueProduct);
+	INSERT INTO storeDatabaseBk.productBkDelete VALUES(NULL, OLD.idProduct, OLD.nameProduct, OLD.valueProduct);
 END
 $
 
@@ -62,13 +62,13 @@ VALUES (NULL, 'Product A', 10.05),
 	   (NULL, 'Product C', 71.33);
 
 SELECT * FROM product;
-SELECT * FROM storeBk.productBkInsert;
+SELECT * FROM storeDatabaseBk.productBkInsert;
 
 -- activate trigger productBkDelete
 DELETE FROM product
 WHERE idProduct = 1;
 
-SELECT * FROM storeBk.productBkDelete;
+SELECT * FROM storeDatabaseBk.productBkDelete;
        
 
 		  

@@ -6,6 +6,8 @@ ALTER TABLE destineTable RENAME newTableName;
 ALTER TABLE destineTable ADD newColumnName CHAR(1);
 
 -- using dicionary
-SHOW DATABASES;
 STATUS;
-SHOW TABLES;
+SHOW DATABASES; -- show information about the database
+SHOW TABLES; -- show all tables in the database
+SELECT CURRENT_USER(); -- user who has the action
+SELECT NOW(); -- time of the action happened

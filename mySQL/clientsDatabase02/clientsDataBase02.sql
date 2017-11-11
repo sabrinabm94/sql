@@ -1,6 +1,6 @@
 -- create database
-CREATE DATABASE database02;
-USE database02;
+CREATE DATABASE clientsDataBase02;
+USE clientsDataBase02;
 
 -- create tables
 CREATE TABLE Street (
