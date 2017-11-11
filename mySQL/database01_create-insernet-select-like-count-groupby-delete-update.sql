@@ -1,5 +1,5 @@
-CREATE DATABASE database01
-USE database01
+CREATE DATABASE database01;
+USE database01;
 
 CREATE TABLE clients (
 	cpf INT PRIMARY KEY,
@@ -10,12 +10,12 @@ CREATE TABLE clients (
 	email VARCHAR(20)
 )
 
--- varchar(20) entrada da palavra joão = 20 bits, sendo 4 de joão e outros 16 em branco
--- char(20) entrada palavra joão = 4 bits
+-- varchar (20) input with the word john = 20 bits, 4 characts of john and 16 others in empty
+-- char (20) input with the word john = 4 bits
 
 -- TABLE INFORMATION
-SHOW TABLES
-DESC clients
+SHOW TABLES;
+DESC clients;
 
 -- INSET
 INSERT INTO clients(cpf, clientName, address, sex, phone, email)
@@ -37,10 +37,10 @@ WHERE sex = 'M';
 SELECT clientName, address, sex 
 FROM clients
 WHERE address LIKE '%Bom Retiro%'; 
--- like diminui muito a performace da busca
--- Onde o campo address tem entre seus caracteres Bom Retiro
--- %Bom Retiro começa com qualquer coisa e termina com Bom Retiro
--- Bom Retiro% começa com Bom Retiro e termina com qualquer coisa
+-- Where the address field has between yours characters Bom Retiro
+-- % Bom Retiro starts with anything and ends with Bom Retiro
+-- Bom Retiro% starts with Bom Retiro and ends with anything
+-- like diminishes the search performace
 
 SELECT COUNT(*) FROM clients;
 
@@ -56,12 +56,12 @@ WHERE sex = "F";
 
 SELECT sex, COUNT(*)
 FROM clients;
--- errado, ele mostrou todos os resultados de sexo, masculino e feminino somente no feminino, arrume usando groupby
+-- wrong, it showed all the results of sex, male and female how only female, fix using groupby
 
 SELECT sex, COUNT(*)
 FROM clients
 GROUP BY sex;
--- C:
+-- correctly
 
 SELECT clientName, address, sex 
 FROM clients
@@ -72,7 +72,7 @@ SELECT clientName, address, sex
 FROM clients
 WHERE email = NULL;
 
--- update e deletesempre deve acompanhar where!
+-- update e delete should always have where!
 SELECT clientName
 FROM clients
 WHERE email IS NULL;
