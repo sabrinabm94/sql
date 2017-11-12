@@ -1,0 +1,2 @@
+Exemple of:
+bulk insert
