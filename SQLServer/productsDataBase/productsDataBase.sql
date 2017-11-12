@@ -23,13 +23,13 @@ CREATE TABLE productsHistoric (
 ); 
 
 INSERT INTO products 
-VALUES('chair', 'home products', 30.00),
-	  ('table', 'home products', 100.00),
-	  ('pool', 'home products', 30.00),
-	  ('teddy bear', 'kids products', 50.00),
-	  ('dress', 'woman products', 200.00),
-	  ('book', 'books', 12.00),
-	  ('notebook', 'tecnology products', 3150.00);
+VALUES('Chair', 'Home products', 30.00),
+	  ('Table', 'Home products', 100.00),
+	  ('Pool', 'Home products', 30.00),
+	  ('Teddy Bear', 'Kids products', 50.00),
+	  ('Dress', 'Woman products', 200.00),
+	  ('Book', 'Books', 12.00),
+	  ('Notebook', 'Tecnology products', 3150.00);
 
 CREATE TRIGGER valueUpdate
 ON dbo.products
@@ -37,21 +37,21 @@ FOR UPDATE
 AS
 	IF UPDATE(valueProduct)
 	BEGIN
-		DECLARE @idProduct INT;
-		DECLARE @product VARCHAR(50);
-		DECLARE @category VARCHAR(50);
-		DECLARE @value NUMERIC (10, 2);
-		DECLARE @valueNew NUMERIC(10, 2);
-		DECLARE @date DATETIME;
-		DECLARE @user VARCHAR(30);
-		DECLARE @action VARCHAR(100);
+		DECLARE @idProduct INT,
+				@product VARCHAR(50), 
+				@category VARCHAR(50),
+				@value NUMERIC (10, 2),
+				@valueNew NUMERIC(10, 2),
+				@date DATETIME,
+				@user VARCHAR(30),
+				@action VARCHAR(100);
 
 		-- values coming from tables must be assigned with select, and values coming from functions or literal values must be assigned with set
-		SELECT @idProduct = idProduct FROM INSERTED;
-		SELECT @product = nameProduct FROM INSERTED;
-		SELECT @category = categoryProduct FROM INSERTED;
-		SELECT @value = valueProduct FROM DELETED;
-		SELECT @valueNew = valueProduct FROM INSERTED;
+		SELECT @idProduct = idProduct, @product = nameProduct, @category = categoryProduct, @valueNew = valueProduct 
+		FROM INSERTED;
+		
+		SELECT @value = valueProduct 
+		FROM DELETED;
 
 		SET @date = GETDATE();
 		SET @user = SUSER_NAME();
