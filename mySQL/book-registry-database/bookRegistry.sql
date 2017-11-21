@@ -11,25 +11,26 @@ CREATE TABLE Author (
 	nameAuthor VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE Clients (
-	nameClient VARCHAR(50) NOT NULl,
+CREATE TABLE Client (
+	idClient INT AUTO_INCREMENT PRIMARY KEY,
+	nameClient VARCHAR(50) NOT NULL,
 	userClient VARCHAR(10) NOT NULL UNIQUE,
 	descriptionClient VARCHAR(255),
 	passwordClient VARCHAR(10) NOT NULL,
-	birtDate DATE,
-	idClient INT AUTO_INCREMENT PRIMARY KEY
+	birtDate DATE
 );
 
 CREATE TABLE Collection (
+	idCollection INT AUTO_INCREMENT PRIMARY KEY,
 	nameCollection VARCHAR(50) NOT NULL UNIQUE,
 	descriptionCollection VARCHAR(255),
 	sizeCollection INT,
-	idCollection INT AUTO_INCREMENT PRIMARY KEY,
-	idClient INT,
-	FOREIGN KEY(idClient) REFERENCES Clients (idClient)
+	idClient INT
+	FOREIGN KEY(idClient) REFERENCES Client (idClient)
 );
 
 CREATE TABLE Book (
+	idBook INT AUTO_INCREMENT PRIMARY KEY,
 	isbn INT,
 	nameBook VARCHAR(50) NOT NULL,
 	yearBook INT,
@@ -37,20 +38,13 @@ CREATE TABLE Book (
 	startsRanking INT,
 	releaseDataBook DATE,
 	editionBook INT,
-	idBook INT AUTO_INCREMENT PRIMARY KEY,
+	idAuthorBook INT,
 	idCollection INT,
     idPublisher INT,
 	FOREIGN KEY(idCollection) REFERENCES Collection (idCollection),
     FOREIGN KEY(idPublisher) REFERENCES Publisher (idPublisher)
 );
 
--- gerado pelo diagrama isso, pela relação n-n de livro e autor, revisar
-CREATE TABLE bookAuth (
-	idBook INT,
-    idPublisher INT,
-	idBookAuth INT AUTO_INCREMENT,
-	FOREIGN KEY(idBook) REFERENCES Book (idBook),
-	FOREIGN KEY(idPublisher) REFERENCES Publisher (idPublisher)
-);
+
 
 
