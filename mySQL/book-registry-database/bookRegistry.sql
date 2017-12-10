@@ -25,7 +25,7 @@ CREATE TABLE Collection (
 	nameCollection VARCHAR(50) NOT NULL UNIQUE,
 	descriptionCollection VARCHAR(255),
 	sizeCollection INT,
-	idClient INT
+	idClient INT,
 	FOREIGN KEY(idClient) REFERENCES Client (idClient)
 );
 
