@@ -1,16 +1,18 @@
-# Repository structure
+# repository structure
 
 ## sql-server
 
 ## my-sql
 
-## Execute the projects
-Execute the sql files in one database.
+## execution
+Execute the sql files in a test database.
 
 
-### contacts
+# contacts
 sabrinabgbc
 
-sabrinabgbc@email.com
+sabrinabgbc@email.com | sabrinabmoreira@gmail.com
 
 noobfrontend.wordpress.com
+
+www.linkedin.com/in/sabrinabmoreira
