@@ -9,10 +9,8 @@ Execute the sql files in a test database.
 
 
 # contacts
-sabrinabgbc
+Sivy
 
-sabrinabgbc@email.com | sabrinabmoreira@gmail.com
+sivyboing@gmail.com
 
-noobfrontend.wordpress.com
-
-www.linkedin.com/in/sabrinabmoreira
+newcoderslab.wordpress.com
