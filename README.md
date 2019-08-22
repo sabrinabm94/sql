@@ -13,4 +13,4 @@ Sivy
 
 sivyboing@gmail.com
 
-newcoderslab.wordpress.com
+www.thedevblog.com.br
