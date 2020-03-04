@@ -1,16 +1,16 @@
-# repository structure
+# Repository structure
 
-## sql-server
+## Sql Server
 
-## my-sql
+## My Sql
 
-## execution
+## Execution
 Execute the sql files in a test database.
 
 
-# contacts
-Sivy
+# Contacts
+Sabrina B.
 
-sivyboing@gmail.com
+sabrinabmoreira@gmail.com
 
-www.thedevblog.com.br
+https://www.thedevblog.com.br/
