@@ -8,9 +8,8 @@
 Execute the sql files in a test database.
 
 
-# Contacts
+---
+
+# Contact
 Sabrina B.
-
-sabrinabmoreira@gmail.com
-
-https://www.thedevblog.com.br/
+sabrinabm94@gmail.com
